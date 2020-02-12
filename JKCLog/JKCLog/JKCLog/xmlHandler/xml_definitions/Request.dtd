@@ -1,0 +1,8 @@
+<!DOCTYPE Request[
+<!ELEMENT Request (ProgramID, SubProgramID, Function)>
+<!ELEMENT ProgramID (#PCDATA)>
+<!ELEMENT SubProgramID (#PCDATA)>
+<!ELEMENT Function (FunctionID, Param+)>
+<!ELEMENT FunctionID (#PCDATA)>
+<!ELEMENT Param (#PCDATA)>
+]>

@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\JKCLog",
+    "\\JKCLog\\JKCLog",
+    "\\JKCLog\\JKCLog\\doc_flow",
+    "\\JKCLog\\JKCLog\\test_script",
+    "\\JKCLog\\JKCLog\\xmlHandler"
+  ],
+  "SelectedNode": "\\JKCLog\\JKCLog\\doc_flow\\DocProcessEventArgs.cs",
+  "PreviewInSolutionExplorer": false
+}

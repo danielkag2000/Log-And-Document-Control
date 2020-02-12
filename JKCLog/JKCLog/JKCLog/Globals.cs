@@ -413,6 +413,125 @@ namespace LogSystem
                     return new ResponseXML(0, int.Parse(parameters[0]), int.Parse(parameters[1])).ToXML();
                 }
             });
+
+
+
+
+
+
+
+
+
+
+            /********** NEED TO TEST **********/
+            // string ShowProcessQueue(int process)
+            functions[9] = ((List<string> parameters, DBClient dbClient) => {
+                if (parameters.Count != 3)
+                {
+                    return new ResponseXML(0, int.Parse(parameters[0]), int.Parse(parameters[1])).ToXML();
+                }
+                int process = int.Parse(parameters[2]);
+                string qurry = $"SELECT * FROM flowTable WHERE cprocess = {process} ORDER BY start_time ASC;";
+
+                // AppDomain.CurrentDomain.SetData("PROCESS_ID", process);
+                // string qurry = ConfigurationManager.AppSettings.Get("WaitingDocs");
+                SqlCommand command = new SqlCommand(qurry, dbClient.GetConnection());
+
+                try
+                {
+                    DataTable dataTable = dbClient.GetCommandValues(command);
+
+                    List<string> docs = new List<string>();
+
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        DataColumn avaliable = dataTable.Columns[5];
+
+                        // if the document is avaliable
+                        if ((int)row[avaliable] > 0)
+                        {
+                            // Add to the list
+                            // doc id + sub_pipe id + round of the document + start time
+                            // seperated with ';'
+                            docs.Add($"{row[dataTable.Columns[0]]};{row[dataTable.Columns[1]]};{row[dataTable.Columns[6]]};{row[dataTable.Columns[4]]}");
+                        }
+                    }
+
+                    return new ResponseXML(1, int.Parse(parameters[0]), int.Parse(parameters[1]), docs).ToXML();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    dbClient.GetConnection().Close();
+                    return new ResponseXML(0, int.Parse(parameters[0]), int.Parse(parameters[1])).ToXML();
+                }
+            });
+
+
+
+
+
+
+
+
+            // string GetDocumentById(int doc_id, int sub_pipe)
+            functions[10] = ((List<string> parameters, DBClient dbClient) =>
+            {
+                if (parameters.Count != 4)
+                {
+                    return new ResponseXML(0, int.Parse(parameters[0]), int.Parse(parameters[1])).ToXML();
+                }
+                int doc_id = int.Parse(parameters[2]);
+                int pipe_id = int.Parse(parameters[3]);
+
+                string qurry = $"SELECT * FROM flowTable WHERE doc_id = {doc_id} AND pipe_id = {pipe_id};";
+
+                SqlCommand command = new SqlCommand(qurry, dbClient.GetConnection());
+
+                try
+                {
+                    DataTable dataTable = dbClient.GetCommandValues(command);
+
+                    if (dataTable.Rows.Count <= 0)
+                    {
+                        // not fount
+                        return new ResponseXML(0, int.Parse(parameters[0]), int.Parse(parameters[1])).ToXML();
+                    }
+
+                    var row = dataTable.Rows[0];
+
+                    DataColumn avaliable = dataTable.Columns[5];
+                    // if avaliable
+                    if ((int)row[avaliable] > 0)
+                    {
+                        // make it unavaliable the pipe
+                        qurry = $"UPDATE flowTable SET avaliable = 0 WHERE doc_id = {(int)row[dataTable.Columns[0]]} AND pipe_id = {(int)row[dataTable.Columns[1]]}";
+
+                        SqlCommand update_command = new SqlCommand(qurry, dbClient.GetConnection());
+                        if (dbClient.DoCommand(update_command))
+                        {
+                            // remove from the current doucuments process count
+                            notification.RemoveProcess((int)row[dataTable.Columns[2]]);
+                            // notify of the current process in pipe
+                            notification.Notify(new DocProcessEventArgs(notification.ProcessQueueSize((int)row[dataTable.Columns[2]]), (int)row[dataTable.Columns[2]], pipe_id));
+
+                            return new ResponseXML(1, int.Parse(parameters[0]), int.Parse(parameters[1]), $"{row[dataTable.Columns[0]]}").ToXML();
+                        }
+                    }
+                    return new ResponseXML(0, int.Parse(parameters[0]), int.Parse(parameters[1])).ToXML();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    dbClient.GetConnection().Close();
+                    return new ResponseXML(0, int.Parse(parameters[0]), int.Parse(parameters[1])).ToXML();
+                }
+            });
+
+
+
+            /********* END - NEED TO TEST *********/
+
         }
     }
 }

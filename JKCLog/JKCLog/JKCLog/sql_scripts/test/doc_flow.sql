@@ -1,0 +1,1 @@
+CREATE TABLE flowTable (doc_id INT NOT NULL, pipe_id INT NOT NULL, pipe_index INT NOT NULL, start_time DATETIME NOT NULL, cround INT NOT NULL);

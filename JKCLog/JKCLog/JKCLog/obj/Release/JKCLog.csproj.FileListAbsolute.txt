@@ -1,0 +1,7 @@
+C:\Users\Daniel\Documents\GitHub\JKCLog\JKCLog\JKCLog\JKCLog\bin\Release\JKCLog.exe.config
+C:\Users\Daniel\Documents\GitHub\JKCLog\JKCLog\JKCLog\JKCLog\bin\Release\JKCLog.exe
+C:\Users\Daniel\Documents\GitHub\JKCLog\JKCLog\JKCLog\JKCLog\bin\Release\JKCLog.pdb
+C:\Users\Daniel\Documents\GitHub\JKCLog\JKCLog\JKCLog\JKCLog\obj\Release\JKCLog.csprojAssemblyReference.cache
+C:\Users\Daniel\Documents\GitHub\JKCLog\JKCLog\JKCLog\JKCLog\obj\Release\JKCLog.csproj.CoreCompileInputs.cache
+C:\Users\Daniel\Documents\GitHub\JKCLog\JKCLog\JKCLog\JKCLog\obj\Release\JKCLog.exe
+C:\Users\Daniel\Documents\GitHub\JKCLog\JKCLog\JKCLog\JKCLog\obj\Release\JKCLog.pdb

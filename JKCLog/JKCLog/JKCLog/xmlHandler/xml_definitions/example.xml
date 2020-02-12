@@ -1,0 +1,8 @@
+<Request>
+	<ProgramID>1</ProgramID>
+	<SubProgramID>2</SubProgramID>
+	<Function>
+		<FunctionID>1</FunctionID>
+		<Param>hello world</Param>
+	</Function>
+</Request>

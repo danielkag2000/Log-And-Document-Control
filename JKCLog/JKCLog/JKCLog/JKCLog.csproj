@@ -57,6 +57,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
+    <Compile Include="test_script\Client.cs" />
     <Compile Include="xmlHandler\NotificationXML.cs" />
     <Compile Include="xmlHandler\RequestXML.cs" />
     <Compile Include="xmlHandler\ResponseXML.cs" />
